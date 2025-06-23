@@ -1,63 +1,71 @@
-# Caricamento pacchetti necessari
+# Caricamento dei pacchetti necessari
 library(ggplot2)
-library(GGally)     # per ggpairs (FACOLTATIVO)
+library(GGally)     # (facoltativo) per ggpairs
 library(corrplot)   # per visualizzare la matrice di correlazione
 library(dplyr)      # per manipolazione dati
-library(readr)      # per leggere CSV
+library(readr)      # per leggere file CSV
 
-# 1. Caricamento del dataset
-data <- read_csv("data/DataSet_gruppo13.csv")
+# Caricamento del dataset
+dati <- read_csv("data/DataSet_gruppo13.csv")
 
-# 2. Statistiche descrittive personalizzate
-statistiche <- data %>%
+# Statistiche descrittive (media, mediana, dev. standard, min, max)
+statistiche_descrittive <- dati %>%
   summarise(across(everything(), list(
     media = mean,
     mediana = median,
-    dev_std = sd,
+    dev_standard = sd,
     minimo = min,
     massimo = max
   )))
 
-# Trasposizione per migliorarne la leggibilità
-print(t(statistiche))
+# Trasposizione per migliorare la leggibilità a video
+print(t(statistiche_descrittive))
 
-# 3. Istogrammi per ogni variabile
-for (var in names(data)) {
+# Istogrammi per ogni variabile
+for (variabile in names(dati)) {
   print(
-    ggplot(data, aes_string(var)) +
+    ggplot(dati, aes_string(variabile)) +
       geom_histogram(bins = 30, fill = "steelblue", color = "white") +
       theme_minimal() +
-      labs(title = paste("Istogramma di", var))
+      labs(title = paste("Istogramma di", variabile),
+           x = variabile,
+           y = "Frequenza")
   )
 }
 
-# 4. Boxplot per ogni variabile
-for (var in names(data)) {
+# Boxplot per ogni variabile
+for (variabile in names(dati)) {
   print(
-    ggplot(data, aes_string(y = var)) +
+    ggplot(dati, aes_string(y = variabile)) +
       geom_boxplot(fill = "tomato", color = "black") +
       theme_minimal() +
-      labs(title = paste("Boxplot di", var), y = var)
+      labs(title = paste("Boxplot di", variabile),
+           y = variabile)
   )
 }
 
-# 5. Scatter plot: ogni variabile indipendente vs y_VideoQuality
-indipendenti <- names(data)[names(data) != "y_VideoQuality"]
-for (x in indipendenti) {
+# Scatter plot: ogni variabile indipendente vs y_VideoQuality
+variabili_indipendenti <- names(dati)[names(dati) != "y_VideoQuality"]
+for (x in variabili_indipendenti) {
   print(
-    ggplot(data, aes_string(x = x, y = "y_VideoQuality")) +
+    ggplot(dati, aes_string(x = x, y = "y_VideoQuality")) +
       geom_point(color = "darkgreen") +
       geom_smooth(method = "lm", se = FALSE, color = "blue") +
       theme_minimal() +
-      labs(title = paste("Scatter plot:", x, "vs y_VideoQuality"))
+      labs(title = paste("Scatter plot:", x, "vs Qualità video"),
+           x = x, y = "Qualità video")
   )
 }
 
-# 6. Matrice di correlazione
-cor_matrix <- cor(data)
-print(cor_matrix)
+# Calcolo della matrice di correlazione
+matrice_correlazioni <- cor(dati)
+print(matrice_correlazioni)
 
-# 7. Visualizzazione della matrice di correlazione (heatmap)
-corrplot(cor_matrix, method = "color", type = "upper",
+# Visualizzazione grafica della matrice di correlazione (heatmap)
+corrplot(matrice_correlazioni, method = "color", type = "upper",
          col = colorRampPalette(c("white", "blue"))(100),
-         addCoef.col = "black", number.cex = 0.7, tl.col = "black")
+         addCoef.col = "black", number.cex = 0.7, tl.col = "black", 
+         mar = c(0, 1, 0, 0))
+
+# Aggiunta del titolo in alto a sinistra (lato 3 = in alto)
+mtext("Matrice di correlazione", side = 3, adj = 0, line = 1.5, cex = 1.2, font = 2)
