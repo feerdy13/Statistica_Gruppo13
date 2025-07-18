@@ -52,8 +52,8 @@ for (x in variabili_indipendenti) {
       geom_point(color = "darkgreen") +
       geom_smooth(method = "lm", se = FALSE, color = "blue") +
       theme_minimal() +
-      labs(title = paste("Scatter plot:", x, "vs Qualità video"),
-           x = x, y = "Qualità video")
+      labs(title = paste("Scatter plot:", x, "vs y_VideoQuality"),
+           x = x, y = "y_VideoQuality")
   )
 }
 
@@ -69,3 +69,4 @@ corrplot(matrice_correlazioni, method = "color", type = "upper",
 
 # Aggiunta del titolo in alto a sinistra (lato 3 = in alto)
 mtext("Matrice di correlazione", side = 3, adj = 0, line = 1.5, cex = 1.2, font = 2)
+
