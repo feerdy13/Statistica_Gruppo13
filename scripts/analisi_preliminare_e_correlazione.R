@@ -1,6 +1,12 @@
 # Caricamento dei pacchetti necessari
+install.packages("ggplot2")
+install.packages("GGally")
+install.packages("corrplot")
+install.packages("dplyr")
+install.packages("readr")
+
 library(ggplot2)
-library(GGally)     # (facoltativo) per ggpairs
+library(GGally)     # per ggpairs
 library(corrplot)   # per visualizzare la matrice di correlazione
 library(dplyr)      # per manipolazione dati
 library(readr)      # per leggere file CSV
