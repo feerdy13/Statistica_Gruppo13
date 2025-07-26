@@ -42,3 +42,4 @@ hist(residui,
      main = "Istogramma dei residui",
      xlab = "Residui",
      col = "skyblue", border = "white")
+
