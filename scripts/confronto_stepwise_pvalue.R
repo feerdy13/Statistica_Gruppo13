@@ -1,4 +1,6 @@
-# Caricamento pacchetti 
+# Caricamento pacchetti
+install.packages("MASS")
+
 library(MASS)
 
 
