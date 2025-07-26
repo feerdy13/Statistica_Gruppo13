@@ -1,9 +1,11 @@
 # Caricamento del dataset
 dati <- read.csv("data/DataSet_gruppo13.csv")
 
+
 # Elenco delle variabili indipendenti
 variabili_indipendenti <- c("x1_ISO", "x2_FRatio", "x3_TIME", "x4_MP", 
                             "x5_CROP", "x6_FOCAL", "x7_PixDensity")
+
 
 # Inizializzazione della tabella dei risultati
 tabella_risultati <- data.frame(
@@ -15,6 +17,7 @@ tabella_risultati <- data.frame(
   Confidenza_95_alto = numeric(),
   stringsAsFactors = FALSE
 )
+
 
 # Ciclo su ogni variabile per calcolare regressione e disegnare grafico
 for (variabile in variabili_indipendenti) {

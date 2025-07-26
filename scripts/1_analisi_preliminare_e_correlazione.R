@@ -5,8 +5,10 @@ library(corrplot)   # per visualizzare la matrice di correlazione
 library(dplyr)      # per manipolazione dati
 library(readr)      # per leggere file CSV
 
+
 # Caricamento del dataset
 dati <- read_csv("data/DataSet_gruppo13.csv")
+
 
 # Statistiche descrittive (media, mediana, dev. standard, min, max)
 statistiche_descrittive <- dati %>%
@@ -21,6 +23,7 @@ statistiche_descrittive <- dati %>%
 # Trasposizione per migliorare la leggibilità a video
 print(t(statistiche_descrittive))
 
+
 # Istogrammi per ogni variabile
 for (variabile in names(dati)) {
   print(
@@ -33,6 +36,7 @@ for (variabile in names(dati)) {
   )
 }
 
+
 # Boxplot per ogni variabile
 for (variabile in names(dati)) {
   print(
@@ -44,18 +48,6 @@ for (variabile in names(dati)) {
   )
 }
 
-# Scatter plot: ogni variabile indipendente vs y_VideoQuality
-variabili_indipendenti <- names(dati)[names(dati) != "y_VideoQuality"]
-for (x in variabili_indipendenti) {
-  print(
-    ggplot(dati, aes_string(x = x, y = "y_VideoQuality")) +
-      geom_point(color = "darkgreen") +
-      geom_smooth(method = "lm", se = FALSE, color = "blue") +
-      theme_minimal() +
-      labs(title = paste("Scatter plot:", x, "vs Qualità video"),
-           x = x, y = "Qualità video")
-  )
-}
 
 # Calcolo della matrice di correlazione
 matrice_correlazioni <- cor(dati)
@@ -69,3 +61,17 @@ corrplot(matrice_correlazioni, method = "color", type = "upper",
 
 # Aggiunta del titolo in alto a sinistra (lato 3 = in alto)
 mtext("Matrice di correlazione", side = 3, adj = 0, line = 1.5, cex = 1.2, font = 2)
+
+
+# Scatter plot: ogni variabile indipendente vs y_VideoQuality
+variabili_indipendenti <- names(dati)[names(dati) != "y_VideoQuality"]
+for (x in variabili_indipendenti) {
+  print(
+    ggplot(dati, aes_string(x = x, y = "y_VideoQuality")) +
+      geom_point(color = "darkgreen") +
+      geom_smooth(method = "lm", se = FALSE, color = "blue") +
+      theme_minimal() +
+      labs(title = paste("Scatter plot:", x, "vs Qualità video"),
+           x = x, y = "Qualità video")
+  )
+}
