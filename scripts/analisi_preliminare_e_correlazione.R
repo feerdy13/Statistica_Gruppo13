@@ -54,21 +54,6 @@ for (variabile in names(dati)) {
   )
 }
 
-<<<<<<< HEAD
-=======
-# Scatter plot: ogni variabile indipendente vs y_VideoQuality
-variabili_indipendenti <- names(dati)[names(dati) != "y_VideoQuality"]
-for (x in variabili_indipendenti) {
-  print(
-    ggplot(dati, aes_string(x = x, y = "y_VideoQuality")) +
-      geom_point(color = "darkgreen") +
-      geom_smooth(method = "lm", se = FALSE, color = "blue") +
-      theme_minimal() +
-      labs(title = paste("Scatter plot:", x, "vs y_VideoQuality"),
-           x = x, y = "y_VideoQuality")
-  )
-}
->>>>>>> b4f87ba0518b13a5ad218cc6919701ac3640fe2d
 
 # Calcolo della matrice di correlazione
 matrice_correlazioni <- cor(dati)
@@ -83,7 +68,6 @@ corrplot(matrice_correlazioni, method = "color", type = "upper",
 # Aggiunta del titolo in alto a sinistra (lato 3 = in alto)
 mtext("Matrice di correlazione", side = 3, adj = 0, line = 1.5, cex = 1.2, font = 2)
 
-<<<<<<< HEAD
 
 # Scatter plot: ogni variabile indipendente vs y_VideoQuality
 variabili_indipendenti <- names(dati)[names(dati) != "y_VideoQuality"]
@@ -93,9 +77,7 @@ for (x in variabili_indipendenti) {
       geom_point(color = "darkgreen") +
       geom_smooth(method = "lm", se = FALSE, color = "blue") +
       theme_minimal() +
-      labs(title = paste("Scatter plot:", x, "vs Qualità video"),
-           x = x, y = "Qualità video")
+      labs(title = paste("Scatter plot:", x, "vs y_VideoQuality"),
+           x = x, y = "y_VideoQuality")
   )
 }
-=======
->>>>>>> b4f87ba0518b13a5ad218cc6919701ac3640fe2d
